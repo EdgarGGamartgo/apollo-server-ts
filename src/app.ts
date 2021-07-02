@@ -1,6 +1,9 @@
 import { ApolloServer } from 'apollo-server';
 
 // 1 typeDefs defines our Schema operations
+// type Query read data
+// type Mutation creates/deletes/updates data
+// type User is an object type that we use in this example to define the type of data (structure) of our response
 const typeDefs = `
   type Query {
     operationOne: Int!
