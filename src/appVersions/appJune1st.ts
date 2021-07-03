@@ -1,5 +1,7 @@
 import { ApolloServer } from 'apollo-server';
 
+// Customized data type
+
 // 1 typeDefs defines our Schema operations
 // type Query read data
 // type Mutation creates/deletes/updates data
