@@ -6,7 +6,14 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "test": "jest --watchAll --no-cache",
-    "test:ci": "jest"
+    "test:ci": "jest",
+    "prisma:init": "npx prisma init",
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:reset": "npx prisma migrate reset",
+    "prisma:gen": "npx prisma generate",
+    "codegen:init": "npx graphql-codegen init",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "studio": "npx prisma studio"
   },
   "jest": {
     "preset": "ts-jest",
@@ -19,8 +26,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@graphql-codegen/cli": "^1.21.6",
+    "@graphql-codegen/introspection": "^1.18.2",
+    "@graphql-codegen/typescript": "^1.22.4",
+    "@graphql-codegen/typescript-resolvers": "^1.19.5",
+    "@prisma/client": "^2.26.0",
+    "@types/lodash": "^4.14.170",
     "apollo-server": "^2.25.2",
     "graphql": "^15.5.1",
+    "graphql-codegen": "^0.4.0",
+    "lodash": "^4.17.21",
+    "prisma": "^2.26.0",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3"
   },
@@ -29,6 +45,10 @@
     "@types/supertest": "^2.0.10",
     "jest": "^26.6.3",
     "supertest": "^6.0.1",
-    "ts-jest": "^26.4.4"
+    "ts-jest": "^26.4.4",
+    "@graphql-codegen/typescript-resolvers": "1.19.5",
+    "@graphql-codegen/typescript": "1.22.4",
+    "@graphql-codegen/introspection": "1.18.2",
+    "@graphql-codegen/cli": "1.21.6"
   }
 }
