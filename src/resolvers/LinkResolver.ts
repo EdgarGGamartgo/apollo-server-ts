@@ -7,15 +7,22 @@ export const LinkResolver: Resolvers = {
       return await context.prisma.link.findMany();
     }
   },
+  Link: {
+    postedBy: (parent, args, context) => {
+      return context.prisma.link.findUnique({ where: { id: parent.id } }).postedBy();
+    }
+  },
   Mutation: {
     post: async (parent, args, context, info) => {
-      const newLink = await context.prisma.link.create({
+      const { userId } = context;
+      console.log("CONTEXT DEBUG ", context);
+      return await context.prisma.link.create({
         data: {
           url: args.url,
-          description: args.description
+          description: args.description,
+          postedBy: { connect: { id: userId } }
         }
       })
-      return newLink;
     },
   }
 }

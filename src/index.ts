@@ -1,4 +1,4 @@
-import { server } from './appVersions/appJune3rd'
+import { server } from './app';
 
 const start = async () => {
   console.log('Starting up...')
