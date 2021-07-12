@@ -24,8 +24,6 @@ type Link {
   postedBy: User
 }
 
-
-
 type AuthPayload {
   token: String
   user: User

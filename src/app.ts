@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { ApolloServer, PubSub } from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
-import resolvers from './ResolverMap';
 import { GetUserId } from './../src/utils';
+import resolvers from './ResolverMap';
 
 const prisma = new PrismaClient();
 const pubsub = new PubSub();
