@@ -1,13 +1,17 @@
 // Install lodash dependency as a tool to merge our resolvers --> npm i lodash
 import { merge } from "lodash";
-import { LinkResolver } from './LinkResolver';
-import { UserResolver } from './UserResolver';
-import { VoteResolver } from "./VoteResolver";
+import {
+  LinkResolver,
+  UserResolver,
+  VoteResolver
+} from './resolvers';
+import { LinkSubscriptions } from "./subscriptions";
 
 const resolvers = merge(
   LinkResolver,
   UserResolver,
-  VoteResolver
+  VoteResolver,
+  LinkSubscriptions
 );
 
 export default resolvers;

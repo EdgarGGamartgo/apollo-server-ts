@@ -1,1 +1,1 @@
-export * from './LinkSubscription';
+export * from './LinkSubscriptions';
