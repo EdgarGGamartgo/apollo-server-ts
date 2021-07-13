@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer, PubSub } from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
-import resolvers from '../src/resolvers/ResolverMap';
+import resolvers from './ResolverMap';
 import { GetUserId } from './../src/utils';
 
 const prisma = new PrismaClient();
+const pubsub = new PubSub();
 
 export const server = new ApolloServer({
   typeDefs: fs.readFileSync(
@@ -17,6 +18,7 @@ export const server = new ApolloServer({
     return {
       ...req,
       prisma,
+      pubsub,
       userId:
         req && req.headers.authorization
           ? GetUserId(req as { headers: { authorization: string } })
