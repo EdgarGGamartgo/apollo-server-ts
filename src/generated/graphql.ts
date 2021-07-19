@@ -27,12 +27,24 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type Feed = {
+  __typename?: 'Feed';
+  links: Array<Link>;
+  count: Scalars['Int'];
+};
+
 export type Link = {
   __typename?: 'Link';
   id: Scalars['ID'];
   description: Scalars['String'];
   url: Scalars['String'];
   postedBy?: Maybe<User>;
+};
+
+export type LinkOrderByInput = {
+  description?: Maybe<Sort>;
+  url?: Maybe<Sort>;
+  createdAt?: Maybe<Sort>;
 };
 
 export type Mutation = {
@@ -66,8 +78,21 @@ export type Query = {
   info: Scalars['String'];
   userInfo: Scalars['String'];
   voteInfo: Scalars['String'];
-  feed: Array<Link>;
+  feed: Feed;
 };
+
+
+export type QueryFeedArgs = {
+  filter?: Maybe<Scalars['String']>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<LinkOrderByInput>;
+};
+
+export enum Sort {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export type Subscription = {
   __typename?: 'Subscription';
@@ -165,14 +190,17 @@ export type ResolversTypes = ResolversObject<{
   AuthPayload: ResolverTypeWrapper<AuthPayload>;
   String: ResolverTypeWrapper<Scalars['String']>;
   CacheControlScope: CacheControlScope;
+  Feed: ResolverTypeWrapper<Feed>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Link: ResolverTypeWrapper<Link>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  LinkOrderByInput: LinkOrderByInput;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  Sort: Sort;
   Subscription: ResolverTypeWrapper<{}>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   User: ResolverTypeWrapper<User>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
@@ -180,14 +208,16 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   AuthPayload: AuthPayload;
   String: Scalars['String'];
+  Feed: Feed;
+  Int: Scalars['Int'];
   Link: Link;
   ID: Scalars['ID'];
+  LinkOrderByInput: LinkOrderByInput;
   Mutation: {};
   Query: {};
   Subscription: {};
   Upload: Scalars['Upload'];
   User: User;
-  Int: Scalars['Int'];
   Boolean: Scalars['Boolean'];
 }>;
 
@@ -199,6 +229,12 @@ export type CacheControlDirectiveResolver<Result, Parent, ContextType = any, Arg
 export type AuthPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthPayload'] = ResolversParentTypes['AuthPayload']> = ResolversObject<{
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FeedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Feed'] = ResolversParentTypes['Feed']> = ResolversObject<{
+  links?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -220,7 +256,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   userInfo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   voteInfo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  feed?: Resolver<Array<ResolversTypes['Link']>, ParentType, ContextType>;
+  feed?: Resolver<ResolversTypes['Feed'], ParentType, ContextType, RequireFields<QueryFeedArgs, never>>;
 }>;
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
@@ -241,6 +277,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   AuthPayload?: AuthPayloadResolvers<ContextType>;
+  Feed?: FeedResolvers<ContextType>;
   Link?: LinkResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
